@@ -1,3 +1,17 @@
+/*
+AISummary.jsx - Component
+------------------------
+- Imports: useState, Button, API
+- Main Component: AISummary({ data, type, onDownload })
+  - State: summary, loading, error
+  - Functions:
+    - generateSummary: Calls API to get AI summary
+    - buildPromptWithContext: Builds prompt for AI based on data/type
+    - computeBasicStats: Computes stats for dataset columns
+    - downloadSummary: Exports summary as PDF/XLSX
+  - Renders: Card with summary, error, download/save buttons
+- Exports: AISummary
+*/
 import { useState } from 'react';
 import Button from './Button';
 import API from '../utils/axios';

@@ -1,3 +1,16 @@
+/*
+Dashboard.jsx - Page
+--------------------
+- Imports: useAuth, Navbar, GradientCard, FeatureCard, ActivityTimeline, Button, AISummary, API
+- Main Component: Dashboard
+  - State: recentActivity, datasets, uploading, reportsCount, chartsCount
+  - Effects: Load dashboard data, handle user switch
+  - Functions:
+    - fetchData: Loads datasets, reports, activities
+    - handleUpload: Handles file upload
+  - Renders: Welcome, upload, stats, quick actions, activity timeline, footer
+- Exports: Dashboard
+*/
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";

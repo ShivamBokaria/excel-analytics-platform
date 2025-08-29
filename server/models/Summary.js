@@ -1,3 +1,12 @@
+/*
+Summary.js - Mongoose Model
+--------------------------
+- Defines summarySchema:
+  - userId, type, summary, prompt, dataSource, metadata
+  - Timestamps enabled
+  - Indexes for userId/createdAt and type
+- Exports: Summary model
+*/
 import mongoose from 'mongoose';
 
 const summarySchema = new mongoose.Schema({

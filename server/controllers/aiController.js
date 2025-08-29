@@ -1,3 +1,14 @@
+/*
+aiController.js - Controller
+----------------------------
+- Imports: Summary model, asyncHandler
+- Exports functions:
+  - generateSummary: POST /api/ai/generate-summary (calls Gemini API)
+  - getSummaries: GET /api/ai/summaries (fetch user summaries)
+  - deleteSummary: DELETE /api/ai/summaries/:id (delete summary)
+  - testSummary: GET /api/ai/test (test model)
+  - saveSummary: POST /api/ai/summaries (save summary)
+*/
 import Summary from '../models/Summary.js';
 import asyncHandler from 'express-async-handler';
 

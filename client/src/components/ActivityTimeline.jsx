@@ -1,3 +1,14 @@
+/*
+ActivityTimeline.jsx - Component
+-------------------------------
+- Props: activities
+- Helper functions:
+  - getActivityIcon: Returns emoji for activity type
+  - getActivityColor: Returns color for activity type
+  - formatActivityTime: Formats time string
+- Renders: List of activities with icons, colors, and times
+- Exports: ActivityTimeline
+*/
 const ActivityTimeline = ({ activities }) => {
   const getActivityIcon = (type) => {
     const icons = {

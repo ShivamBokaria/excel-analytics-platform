@@ -1,3 +1,17 @@
+/*
+Reports.jsx - Page
+------------------
+- Imports: Navbar, Button, AISummary, API
+- Main Component: Reports
+  - State: reports
+  - Effects: Load reports, handle user switch
+  - Functions:
+    - load: Loads reports
+    - remove: Deletes a report
+    - download: Navigates to chart for download
+  - Renders: List of reports, actions, AI summary for each report
+- Exports: Reports
+*/
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
