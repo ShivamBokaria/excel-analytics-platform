@@ -12,12 +12,14 @@
   "dependencies": {
     "axios": "^1.11.0",
     "chart.js": "^4.4.4",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.2",
     "react": "^19.1.1",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.8.0",
-    "react-chartjs-2": "^5.3.0",
-    "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.2"
+    "three": "^0.179.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",

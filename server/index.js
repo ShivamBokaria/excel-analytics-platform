@@ -8,6 +8,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import fileRoutes from "./routes/fileRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import activityRoutes from "./routes/activityRoutes.js";
+import aiRoutes from "./routes/aiRoutes.js";
 
 
 
@@ -23,6 +24,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/files", fileRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/activity", activityRoutes);
+app.use("/api/ai", aiRoutes);
 
 
 

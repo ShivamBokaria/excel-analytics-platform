@@ -46,35 +46,14 @@ function About() {
           </div>
 
           <div className="card-light p-6">
-            <h2 className="text-2xl font-bold text-white mb-4">Technology Stack</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-2">Frontend</h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">React</span>
-                  <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Tailwind CSS</span>
-                  <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Chart.js</span>
-                  <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Vite</span>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-2">Backend</h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">Node.js</span>
-                  <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">Express</span>
-                  <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">MongoDB</span>
-                  <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">JWT</span>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-2">Data Processing</h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">XLSX</span>
-                  <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">Multer</span>
-                  <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">Mongoose</span>
-                </div>
-              </div>
-            </div>
+            <h2 className="text-2xl font-bold text-white mb-4">Why Choose This Platform</h2>
+            <ul className="list-disc list-inside text-white/80 space-y-2">
+              <li>All-in-one: upload, analyze, visualize, and summarize in one place.</li>
+              <li>True 3D visualization with clear X, Y, Z axes and multiple chart types.</li>
+              <li>Smart AI summaries for datasets, charts, and saved reports.</li>
+              <li>Role-based access with admin approvals and user switching.</li>
+              <li>Fast, responsive UI with a consistent visual design.</li>
+            </ul>
           </div>
         </div>
 

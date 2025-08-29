@@ -80,41 +80,13 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
       // refresh lastUsedAt
       persistAccount({ id: data._id || data.id, name: data.name, email: data.email, role: data.role }, token);
+      
+      // Emit custom event to notify components to refresh data
+      window.dispatchEvent(new CustomEvent('userSwitched', { detail: { user: data } }));
+      
       return { success: true };
     } catch (e) {
       return { success: false, message: 'Saved session expired. Please log in again.' };
-    }
-  };
-
-  const googleSignIn = async (googleToken) => {
-    try {
-      const { data } = await API.post('/auth/google', { token: googleToken });
-      localStorage.setItem('token', data.token);
-      setUser(data.user);
-      setIsAuthenticated(true);
-      persistAccount(data.user, data.token);
-      return { success: true };
-    } catch (error) {
-      return { 
-        success: false, 
-        message: error.response?.data?.message || 'Google sign-in failed' 
-      };
-    }
-  };
-
-  const appleSignIn = async (appleToken) => {
-    try {
-      const { data } = await API.post('/auth/apple', { token: appleToken });
-      localStorage.setItem('token', data.token);
-      setUser(data.user);
-      setIsAuthenticated(true);
-      persistAccount(data.user, data.token);
-      return { success: true };
-    } catch (error) {
-      return { 
-        success: false, 
-        message: error.response?.data?.message || 'Apple sign-in failed' 
-      };
     }
   };
 
@@ -148,8 +120,6 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     switchToAccount,
-    googleSignIn,
-    appleSignIn,
   };
 
   return (

@@ -19,6 +19,12 @@ router.put("/approve/:id", protect, adminOnly, async (req, res) => {
   res.json({ message: "Admin approved" });
 });
 
+// Disapprove admin by ID
+router.put("/disapprove/:id", protect, adminOnly, async (req, res) => {
+  await User.findByIdAndUpdate(req.params.id, { role: "user", status: "approved" });
+  res.json({ message: "Admin request disapproved" });
+});
+
 // Stats for admin dashboard
 router.get("/stats", protect, adminOnly, async (req, res) => {
   try {

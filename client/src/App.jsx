@@ -9,6 +9,7 @@ import Charts from './pages/Charts';
 import Datasets from './pages/Datasets';
 import Reports from './pages/Reports';
 import About from './pages/About';
+import AISummaryPage from './pages/AISummary';
 
 function App() {
   return (
@@ -56,6 +57,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Reports />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/ai-summary" 
+            element={
+              <ProtectedRoute>
+                <AISummaryPage />
               </ProtectedRoute>
             } 
           />
