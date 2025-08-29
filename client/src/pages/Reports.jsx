@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
+import AISummary from '../components/AISummary';
 import API from '../utils/axios';
 
 function Reports() {
@@ -12,6 +13,15 @@ function Reports() {
   };
 
   useEffect(() => { load(); }, []);
+  
+  useEffect(() => {
+    const handleUserSwitch = () => {
+      load();
+    };
+    
+    window.addEventListener('userSwitched', handleUserSwitch);
+    return () => window.removeEventListener('userSwitched', handleUserSwitch);
+  }, []);
 
   const remove = async (id) => {
     await API.delete(`/reports/${id}`);
@@ -35,11 +45,22 @@ function Reports() {
           {reports.map((r) => (
             <div key={r._id} className="card-light p-4">
               <div className="font-semibold text-white">{r.name}</div>
-              <div className="text-xs text-white/70">{r.chartType.toUpperCase()} • x: {r.xCol} • y: {r.yCol}</div>
+              <div className="text-xs text-white/70">
+                {r.chartType.toUpperCase()} • {r.dimension || '2D'} • x: {r.xCol} • y: {r.yCol}
+                {r.dimension === '3D' && r.zCol && ` • z: ${r.zCol}`}
+              </div>
               <div className="mt-3 flex gap-2">
                 <Button variant="glassLight" onClick={() => window.location.assign(`/charts?report=${r._id}`)} className="cursor-pointer">Open</Button>
                 <Button variant="outline" onClick={() => download(r._id)} className="cursor-pointer">Download</Button>
                 <Button variant="danger" onClick={() => remove(r._id)} className="cursor-pointer">Delete</Button>
+              </div>
+              
+              {/* AI Summary for Report */}
+              <div className="mt-4">
+                <AISummary 
+                  data={r} 
+                  type="report" 
+                />
               </div>
             </div>
           ))}

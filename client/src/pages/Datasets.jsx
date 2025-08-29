@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
+import AISummary from '../components/AISummary';
 import API from '../utils/axios';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 
 function Datasets() {
-  const { user } = useAuth();
   const [datasets, setDatasets] = useState([]);
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -31,7 +30,16 @@ function Datasets() {
     }
   };
 
-  useEffect(() => { loadList(); }, [user?.id]);
+  useEffect(() => { loadList(); }, []);
+  
+  useEffect(() => {
+    const handleUserSwitch = () => {
+      loadList();
+    };
+    
+    window.addEventListener('userSwitched', handleUserSwitch);
+    return () => window.removeEventListener('userSwitched', handleUserSwitch);
+  }, []);
 
   const remove = async (id) => {
     if (!confirm('Are you sure you want to delete this dataset?')) return;
@@ -226,6 +234,16 @@ function Datasets() {
                     </tbody>
                   </table>
                 </div>
+                
+                {/* AI Summary for Dataset */}
+                {selected && (
+                  <div className="mt-6">
+                    <AISummary 
+                      data={selected} 
+                      type="dataset" 
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>

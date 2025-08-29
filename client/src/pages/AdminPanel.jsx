@@ -19,7 +19,18 @@ const AdminPanel = () => {
     fetchPendingAdmins();
     fetchStats();
     fetchUsers();
-  }, [user?.id]);
+  }, []);
+  
+  useEffect(() => {
+    const handleUserSwitch = () => {
+      fetchPendingAdmins();
+      fetchStats();
+      fetchUsers();
+    };
+    
+    window.addEventListener('userSwitched', handleUserSwitch);
+    return () => window.removeEventListener('userSwitched', handleUserSwitch);
+  }, []);
 
   const fetchPendingAdmins = async () => {
     try {
@@ -83,11 +94,26 @@ const AdminPanel = () => {
   };
 
   const approveAdmin = async (adminId) => {
+    if (!confirm('Are you sure you want to approve this admin request? The user will gain full admin privileges.')) {
+      return;
+    }
     try {
       await API.put(`/admin/approve/${adminId}`);
       setPendingAdmins(pendingAdmins.filter(admin => admin._id !== adminId));
     } catch (err) {
       setError('Failed to approve admin');
+    }
+  };
+
+  const disapproveAdmin = async (adminId) => {
+    if (!confirm('Are you sure you want to disapprove this admin request? The user will remain as a regular user.')) {
+      return;
+    }
+    try {
+      await API.put(`/admin/disapprove/${adminId}`);
+      setPendingAdmins(pendingAdmins.filter(admin => admin._id !== adminId));
+    } catch (err) {
+      setError('Failed to disapprove admin');
     }
   };
 
@@ -250,6 +276,12 @@ const AdminPanel = () => {
                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium cursor-pointer"
                       >
                         Approve
+                      </button>
+                      <button
+                        onClick={() => disapproveAdmin(admin._id)}
+                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium cursor-pointer"
+                      >
+                        Disapprove
                       </button>
                     </div>
                   </div>

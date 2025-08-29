@@ -76,6 +76,7 @@ const Navbar = () => {
                     <Link to="/datasets" className={`block px-3 py-2 rounded-lg text-sm transition-colors cursor-pointer ${isCurrentPage('/datasets') ? 'bg-white/10 text-white' : 'text-white hover:bg-white/10'}`} onClick={() => setMenuOpen(false)}>Datasets</Link>
                     <Link to="/charts" className={`block px-3 py-2 rounded-lg text-sm transition-colors cursor-pointer ${isCurrentPage('/charts') ? 'bg-white/10 text-white' : 'text-white hover:bg-white/10'}`} onClick={() => setMenuOpen(false)}>Charts</Link>
                     <Link to="/reports" className={`block px-3 py-2 rounded-lg text-sm transition-colors cursor-pointer ${isCurrentPage('/reports') ? 'bg-white/10 text-white' : 'text-white hover:bg-white/10'}`} onClick={() => setMenuOpen(false)}>Reports</Link>
+                    <Link to="/ai-summary" className={`block px-3 py-2 rounded-lg text-sm transition-colors cursor-pointer ${isCurrentPage('/ai-summary') ? 'bg-white/10 text-white' : 'text-white hover:bg-white/10'}`} onClick={() => setMenuOpen(false)}>AI Summary</Link>
                     {/* Admin Panel removed from hamburger menu as requested */}
                   </div>
                 </div>
@@ -84,9 +85,9 @@ const Navbar = () => {
 
             {/* Brand */}
             <Link to="/" className="flex items-center gap-3 cursor-pointer">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 text-white grid place-items-center shadow-glow">📊</div>
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 text-white grid place-items-center shadow-glow">📊</div>
               <span className="text-lg font-extrabold tracking-tight text-white">Excel Analytics</span>
-            </Link>
+          </Link>
           </div>
 
           {/* Center: Main Navigation */}
@@ -102,14 +103,24 @@ const Navbar = () => {
               Home
             </Link>
             <Link 
-              to="/datasets" 
+              to="/charts" 
               className={`text-sm font-medium transition-all duration-200 px-4 py-2 rounded-lg ${
-                isCurrentPage('/datasets') 
+                isCurrentPage('/charts') 
                   ? 'text-white bg-white/20 shadow-lg' 
                   : 'text-white/80 hover:text-white hover:bg-white/10'
               } cursor-pointer`}
             >
-              Services
+              Charts
+            </Link>
+            <Link 
+              to="/ai-summary" 
+              className={`text-sm font-medium transition-all duration-200 px-4 py-2 rounded-lg ${
+                isCurrentPage('/ai-summary') 
+                  ? 'text-white bg-white/20 shadow-lg' 
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
+              } cursor-pointer`}
+            >
+              AI Summary
             </Link>
             <Link 
               to="/about" 
@@ -121,7 +132,7 @@ const Navbar = () => {
             >
               About
             </Link>
-          </div>
+              </div>
 
           {/* Right: Profile / Auth buttons */}
           {isPublicHome ? (
@@ -169,60 +180,62 @@ const Navbar = () => {
                         Admin Panel
                       </Link>
                     )}
-                    <button 
-                      onClick={() => setShowSwitchList(v => !v)}
-                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/10 text-sm text-white transition-colors cursor-pointer"
+                    <div 
+                      className="relative group"
+                      onMouseEnter={() => setShowSwitchList(true)}
+                      onMouseLeave={() => setShowSwitchList(false)}
                     >
-                      Switch User
-                    </button>
-                    {showSwitchList && (
-                      <div className="mt-1 p-2 rounded-lg bg-white/5 border border-white/10">
-                        {(() => {
-                          try {
-                            const list = JSON.parse(localStorage.getItem('recentAccounts') || '[]');
-                            if (!list.length) return <div className="text-xs text-white/60 px-2 py-1">No saved accounts</div>;
-                            return (
-                              <div className="space-y-1 max-h-56 overflow-auto">
-                                {list.map(acc => (
-                                  <button
-                                    key={acc.email}
-                                    onClick={async () => {
-                                      const tokensByEmail = JSON.parse(localStorage.getItem('tokensByEmail') || '{}');
-                                      const hasToken = !!tokensByEmail[acc.email];
-                                      if (hasToken) {
-                                        const r = await switchToAccount(acc.email);
-                                        if (r.success) { setProfileOpen(false); setShowSwitchList(false); }
-                                      } else {
-                                        setAuthPrefill({ email: acc.email, role: acc.role });
-                                        setAuthMode('login');
-                                        setAuthOpen(true);
-                                      }
-                                    }}
-                                    className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-white/10 text-left text-sm cursor-pointer"
-                                  >
-                                    <div className="flex items-center gap-2">
-                                      <div className="w-7 h-7 rounded-full bg-white/10 grid place-items-center text-white/90 text-xs">
-                                        {acc.name?.charAt(0)?.toUpperCase() || acc.email.charAt(0).toUpperCase()}
+                      <button 
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/10 text-sm text-white transition-colors cursor-pointer"
+                      >
+                        Switch User
+                      </button>
+                      {showSwitchList && (
+                        <div className="absolute left-0 mt-1 w-80 rounded-xl p-3 bg-black/90 text-white border border-white/10 backdrop-blur-md shadow-2xl z-50">
+                          <div className="text-sm font-medium text-white/80 mb-3 px-2">Recent Accounts</div>
+                          {(() => {
+                            try {
+                              const list = JSON.parse(localStorage.getItem('recentAccounts') || '[]');
+                              if (!list.length) return <div className="text-xs text-white/60 px-2 py-3 text-center">No saved accounts</div>;
+                              return (
+                                <div className="space-y-1 max-h-56 overflow-auto">
+                                  {list.map(acc => (
+                                    <button
+                                      key={acc.email}
+                                      onClick={async () => {
+                                        const tokensByEmail = JSON.parse(localStorage.getItem('tokensByEmail') || '{}');
+                                        const hasToken = !!tokensByEmail[acc.email];
+                                        if (hasToken) {
+                                          const r = await switchToAccount(acc.email);
+                                          if (r.success) { setProfileOpen(false); setShowSwitchList(false); }
+                                        } else {
+                                          setAuthPrefill({ email: acc.email, role: acc.role });
+                                          setAuthMode('login');
+                                          setAuthOpen(true);
+                                        }
+                                      }}
+                                      className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-white/10 text-left text-sm cursor-pointer"
+                                    >
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-7 h-7 rounded-full bg-white/10 grid place-items-center text-white/90 text-xs">
+                                          {acc.name?.charAt(0)?.toUpperCase() || acc.email.charAt(0).toUpperCase()}
+                                        </div>
+                                        <div>
+                                          <div className="text-white/90 leading-tight">{acc.name || acc.email}</div>
+                                          <div className="text-white/60 text-[11px] leading-tight">{acc.email} • {acc.role}</div>
+                                        </div>
                                       </div>
-                                      <div>
-                                        <div className="text-white/90 leading-tight">{acc.name || acc.email}</div>
-                                        <div className="text-white/60 text-[11px] leading-tight">{acc.email} • {acc.role}</div>
-                                      </div>
-                                    </div>
-                                  </button>
-                                ))}
-                                <div className="flex items-center gap-2 pt-2">
-                                  <Button variant="glassDark" className="flex-1 cursor-pointer" onClick={() => { setShowSwitchList(false); setAuthMode('login'); setAuthOpen(true); }}>Login</Button>
-                                  <Button variant="secondary" className="flex-1 cursor-pointer" onClick={() => { setShowSwitchList(false); setAuthMode('register'); setAuthOpen(true); }}>Sign up</Button>
+                                    </button>
+                                  ))}
                                 </div>
-                              </div>
-                            );
-                          } catch {
-                            return <div className="text-xs text-white/60 px-2 py-1">No saved accounts</div>;
-                          }
-                        })()}
-                      </div>
-                    )}
+                              );
+                            } catch {
+                              return <div className="text-xs text-white/60 px-2 py-3 text-center">No saved accounts</div>;
+                            }
+                          })()}
+                        </div>
+                      )}
+                    </div>
                     <Button variant="danger" className="w-full cursor-pointer" onClick={handleLogout}>Logout</Button>
                   </div>
                 </div>
@@ -232,7 +245,7 @@ const Navbar = () => {
             <div className="flex items-center gap-3">
               <Button variant="glassDark" onClick={() => { setAuthMode('login'); setAuthOpen(true); }} className="cursor-pointer">Login</Button>
               <Button variant="secondary" onClick={() => { setAuthMode('register'); setAuthOpen(true); }} className="cursor-pointer">Sign up</Button>
-            </div>
+          </div>
           )}
         </nav>
       </div>

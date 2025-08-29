@@ -1,209 +1,199 @@
 # Excel Analytics Platform
 
-A powerful MERN stack application for uploading, analyzing, and visualizing Excel data with role-based authentication and admin management.
+A comprehensive data analytics platform with AI-powered insights, advanced charting capabilities, and user management features.
 
-## 🚀 Features Completed (Week 1)
+## Features
 
-### ✅ Authentication System
-- **User Registration & Login** with JWT authentication
-- **Role-based Access Control** (User/Admin roles)
-- **Protected Routes** with authentication middleware
-- **Password Security** using bcrypt hashing
-- **Auto-login/logout** with token management
+### 🤖 AI Summary Hub
+- **Intelligent Data Analysis**: Generate AI-powered summaries of datasets, charts, and reports
+- **OpenAI Integration**: Uses GPT-3.5-turbo for intelligent insights
+- **Export Options**: Download summaries in PDF and Excel formats
+- **Persistent Storage**: Save and manage all generated summaries
 
-### ✅ Modern Dashboard
-- **Responsive Design** with Tailwind CSS
-- **User-friendly Interface** with statistics cards
-- **Quick Actions** for upcoming features
-- **Recent Activity** tracking
-- **Development Progress** tracker
-- **Role-specific Navigation** (Admin panel for admins)
+### 📊 Advanced Charting
+- **2D Charts**: Bar, Line, Pie, Scatter, Area, Doughnut, Radar, Bubble, Horizontal Bar, Stacked Bar
+- **3D Visualization**: 3D Bar, 3D Scatter, 3D Line charts with enhanced rendering
+- **Custom 3D Engine**: HTML5 Canvas-based 3D charts with proper axes and depth
+- **Interactive Controls**: Dynamic chart type switching and axis selection
 
-### ✅ Admin Panel
-- **Admin-only Access** with role verification
-- **Pending Admin Approvals** management
-- **Platform Statistics** overview
-- **System Health** monitoring
-- **Quick Admin Actions**
+### 📁 Data Management
+- **File Upload**: Support for Excel/CSV files
+- **Dataset Management**: Rename, download, and delete datasets
+- **Data Preview**: Interactive table view with sample data
 
-## 🛠️ Tech Stack
+### 👥 User Management
+- **Role-Based Access**: User and Admin roles with approval workflow
+- **Account Switching**: Seamless user switching without logout
+- **Admin Panel**: User management and platform oversight
 
-- **Frontend**: React 19, Tailwind CSS, React Router DOM
-- **Backend**: Node.js, Express.js, JWT
-- **Database**: MongoDB with Mongoose
-- **Development**: Vite, Nodemon, Concurrently
+## Setup Instructions
 
-## 📋 Prerequisites
-
+### Prerequisites
 - Node.js (v16 or higher)
-- MongoDB (local or cloud)
-- npm or yarn
-
-## 🚀 Quick Start
+- MongoDB Atlas account
+- OpenAI API key
 
 ### 1. Clone and Install Dependencies
 ```bash
-# Install all dependencies (root, server, client)
-npm run install-all
+git clone <repository-url>
+cd excel-analytics-platform
+
+# Install server dependencies
+cd server
+npm install
+
+# Install client dependencies
+cd ../client
+npm install
 ```
 
-### 2. Environment Setup
-```bash
-# Create environment file in server directory
-# Copy the following to server/.env:
+### 2. Environment Configuration
 
+#### Server (.env)
+Create `server/.env` file:
+```env
+# MongoDB Connection
+MONGODB_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/excel_analytics?retryWrites=true&w=majority
+
+# JWT Secret
+JWT_SECRET=your_jwt_secret_key_here
+
+# OpenAI API Key (Required for AI Summary feature)
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Server Port
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/excel-analytics-platform
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
-NODE_ENV=development
 ```
 
-### 3. Start Development Servers
+#### OpenAI API Key Setup
+1. Visit [OpenAI Platform](https://platform.openai.com/)
+2. Create an account or sign in
+3. Navigate to API Keys section
+4. Create a new API key
+5. Copy the key and paste it in `server/.env`
+
+### 3. MongoDB Setup
+1. Create a MongoDB Atlas account
+2. Create a new cluster
+3. Add your IP address to the whitelist
+4. Create a database user with read/write permissions
+5. Get your connection string and update `MONGODB_URI` in `.env`
+
+### 4. Start the Application
+
+#### Start Server
 ```bash
-# Start both client and server concurrently
-npm run dev
-
-# Or start individually:
-npm run server  # Backend on http://localhost:5000
-npm run client  # Frontend on http://localhost:5173
+cd server
+npm start
 ```
 
-### 4. Access the Application
-- **Frontend**: http://localhost:5173
-- **Backend API**: http://localhost:5000
+#### Start Client
+```bash
+cd client
+npm start
+```
 
-## 👥 User Roles & Access
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:5000
+
+## AI Summary Feature
+
+### How It Works
+1. **Data Analysis**: Upload datasets or create charts
+2. **AI Generation**: Click "Generate Summary" to get AI insights
+3. **Smart Prompts**: System automatically creates context-aware prompts
+4. **Persistent Storage**: All summaries are saved and can be accessed later
+5. **Export Options**: Download summaries in PDF or Excel format
+
+### Supported Summary Types
+- **Dataset**: Analysis of data structure, patterns, and recommendations
+- **Chart**: Insights about visualization and data trends
+- **Report**: Comprehensive analysis of saved chart reports
+- **Platform**: Overview of your analytics platform usage
+
+### API Endpoints
+- `POST /api/ai/generate-summary` - Generate new AI summary
+- `GET /api/ai/summaries` - Get user's saved summaries
+- `DELETE /api/ai/summaries/:id` - Delete a summary
+
+## Chart Types
+
+### 2D Charts
+- **Bar Chart**: Vertical bar visualization
+- **Line Chart**: Trend line visualization
+- **Pie Chart**: Proportional data representation
+- **Scatter Plot**: Correlation analysis
+- **Area Chart**: Filled area visualization
+- **Doughnut Chart**: Ring-shaped data representation
+- **Radar Chart**: Multi-dimensional data comparison
+- **Bubble Chart**: Three-dimensional data points
+- **Horizontal Bar**: Horizontal bar visualization
+- **Stacked Bar**: Grouped data representation
+
+### 3D Charts
+- **3D Bar Chart**: Three-dimensional bar visualization with depth
+- **3D Scatter Plot**: Three-dimensional data points with Z-axis
+- **3D Line Chart**: Three-dimensional line with depth variation
+
+## User Roles
 
 ### Regular User
-- Register/Login to platform
+- Upload and manage datasets
+- Create and save charts
+- Generate AI summaries
 - Access personal dashboard
-- View analytics (Coming in Week 2-4)
-- Upload Excel files (Coming in Week 2)
 
 ### Admin User
-- All user permissions
-- Access admin panel (`/admin`)
-- Approve pending admin registrations
-- View platform statistics
-- Manage users and system settings
+- All user capabilities
+- User management
+- Platform oversight
+- Admin approval workflow
 
-## 📡 API Endpoints
-
-### Authentication
-```
-POST /api/auth/register  # Register new user
-POST /api/auth/login     # User login
-GET  /api/auth/me        # Get current user (protected)
-```
-
-### Admin (Admin Only)
-```
-GET /api/admin/pending-admins  # Get pending admin requests
-PUT /api/admin/approve/:id     # Approve admin request
-```
-
-## 🎨 UI Features
-
-### Login/Register Pages
-- Modern, responsive design
-- Real-time form validation
-- Error/success message handling
-- Auto-redirect for authenticated users
-
-### Dashboard
-- **Stats Cards**: File uploads, reports, data points, active users
-- **Quick Actions**: Upload files, create reports, view analytics
-- **Recent Activity**: Track user actions and platform usage
-- **Progress Tracker**: Monitor development milestones
-
-### Admin Panel
-- **Pending Approvals**: Review and approve admin requests
-- **System Health**: Monitor server, database, and API status
-- **Platform Stats**: Overview of platform usage
-- **Quick Actions**: Administrative tools and settings
-
-## 🔮 Upcoming Features (Weeks 2-5)
-
-### Week 2: File Upload & Parsing
-- Excel file upload (.xls, .xlsx)
-- Data parsing and validation
-- File storage and management
-- Error handling for corrupt files
-
-### Week 3: Chart Generation
-- Dynamic chart creation
-- Multiple chart types (bar, line, pie, scatter)
-- Chart customization options
-- Export charts as images
-
-### Week 4: Advanced Analytics
-- Data filtering and sorting
-- Statistical analysis
-- Trend identification
-- Downloadable reports
-
-### Week 5: Deployment & Polish
-- Production deployment
-- Performance optimization
-- Final testing and bug fixes
-- Documentation completion
-
-## 🧪 Development Commands
-
-```bash
-# Install dependencies
-npm run install-all
-
-# Development
-npm run dev          # Start both client and server
-npm run client       # Start frontend only
-npm run server       # Start backend only
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **MongoDB Connection Error**
-   - Ensure MongoDB is running locally or update MONGO_URI in .env
-   - Check MongoDB service status
-
-2. **JWT Token Issues**
-   - Clear browser localStorage
-   - Check JWT_SECRET in .env file
-
-3. **Port Conflicts**
-   - Change PORT in server/.env
-   - Update client API baseURL in `client/src/utils/axios.js`
-
-4. **Dependency Issues**
-   - Delete node_modules and package-lock.json
-   - Run `npm run install-all` again
-
-## 📝 Project Structure
+## File Structure
 
 ```
 excel-analytics-platform/
 ├── client/                 # React frontend
 │   ├── src/
-│   │   ├── components/    # Reusable components
-│   │   ├── context/       # React context (Auth)
+│   │   ├── components/    # Reusable UI components
 │   │   ├── pages/         # Page components
-│   │   └── utils/         # Utilities (API config)
-├── server/                # Express backend
-│   ├── config/           # Database configuration
-│   ├── controllers/      # Route controllers
-│   ├── middleware/       # Custom middleware
-│   ├── models/           # Mongoose models
-│   └── routes/           # API routes
+│   │   ├── context/       # React context providers
+│   │   └── utils/         # Utility functions
+│   └── package.json
+├── server/                 # Node.js backend
+│   ├── controllers/        # Route controllers
+│   ├── models/            # MongoDB models
+│   ├── routes/            # API routes
+│   ├── middleware/        # Custom middleware
+│   └── index.js           # Server entry point
 └── README.md
 ```
 
----
+## Troubleshooting
 
-**Week 1 Status**: ✅ **COMPLETED**
-- Authentication system fully implemented
-- Modern dashboard with responsive design
-- Admin panel with user management
-- All critical fixes applied
-- Ready for Week 2 development
+### Common Issues
+
+1. **MongoDB Connection Error**
+   - Verify your IP is whitelisted in MongoDB Atlas
+   - Check connection string format
+   - Ensure database user has correct permissions
+
+2. **OpenAI API Errors**
+   - Verify API key is correct
+   - Check API key has sufficient credits
+   - Ensure API key is properly set in `.env`
+
+3. **Port Conflicts**
+   - Change PORT in `.env` if 5000 is occupied
+   - Update client API base URL if needed
+
+### Support
+For issues or questions:
+1. Check the console for error messages
+2. Verify all environment variables are set
+3. Ensure all dependencies are installed
+4. Check MongoDB and OpenAI service status
+
+## License
+This project is licensed under the MIT License.

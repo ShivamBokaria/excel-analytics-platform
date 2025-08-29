@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import RoleToggle from "../components/RoleToggle";
 import Button from "../components/Button";
-import SocialLoginButtons from "../components/SocialLoginButtons";
 
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "", role: "user" });
@@ -154,11 +153,6 @@ function Register() {
               </Button>
             </div>
           </form>
-
-          <SocialLoginButtons 
-            onSuccess={(message) => setSuccess(message)}
-            onError={(message) => setError(message)}
-          />
         </div>
 
         {/* Right Pane (Promo / Illustration) */}

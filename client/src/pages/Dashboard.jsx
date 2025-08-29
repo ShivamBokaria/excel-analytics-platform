@@ -5,6 +5,7 @@ import GradientCard from "../components/GradientCard";
 import FeatureCard from "../components/FeatureCard";
 import ActivityTimeline from "../components/ActivityTimeline";
 import Button from "../components/Button";
+import AISummary from "../components/AISummary";
 import API from "../utils/axios";
 
 
@@ -14,6 +15,7 @@ function Dashboard() {
   const [datasets, setDatasets] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [reportsCount, setReportsCount] = useState(0);
+  const [chartsCount, setChartsCount] = useState(0);
 
   const fetchData = async () => {
     try {
@@ -24,6 +26,7 @@ function Dashboard() {
       ]);
       setDatasets(list);
       setReportsCount(reports.length);
+      setChartsCount(reports.filter(r => r.chartType).length);
       const formatted = activities.map(a => ({ 
         id: a._id, action: a.action, time: a.createdAt, type: a.type, details: a.details 
       }));
@@ -33,7 +36,16 @@ function Dashboard() {
 
   useEffect(() => {
     fetchData();
-  }, [user?.id]); // Refresh when user changes
+  }, []);
+
+  useEffect(() => {
+    const handleUserSwitch = () => {
+      fetchData();
+    };
+    
+    window.addEventListener('userSwitched', handleUserSwitch);
+    return () => window.removeEventListener('userSwitched', handleUserSwitch);
+  }, []);
 
   const handleUpload = async (e) => {
     const file = e.target.files?.[0];
@@ -55,9 +67,9 @@ function Dashboard() {
 
   const statsData = [
     { title: "Files Uploaded", value: String(datasets.length), subtitle: "All time", icon: "📊", gradient: "bg-gradient-to-br from-blue-500 to-blue-700", trend: 0 },
-    { title: "Reports Saved", value: String(reportsCount), subtitle: "All time", icon: "📈", gradient: "bg-gradient-to-br from-green-500 to-emerald-600", trend: 0 },
-    { title: "Data Sample Rows", value: String(datasets.reduce((a,d)=>a + (d.rowCount||0),0)), subtitle: "Across uploads", icon: "🔍", gradient: "bg-gradient-to-br from-purple-500 to-purple-700", trend: 0 },
-    { title: "Unique Columns", value: String(new Set(datasets.flatMap(d=>d.columns||[])).size), subtitle: "Across uploads", icon: "🗂️", gradient: "bg-gradient-to-br from-orange-500 to-red-500", trend: 0 },
+    { title: "Saved Charts", value: String(chartsCount), subtitle: "From reports", icon: "📈", gradient: "bg-gradient-to-br from-green-500 to-emerald-600", trend: 0 },
+    { title: "Reports Saved", value: String(reportsCount), subtitle: "All time", icon: "📄", gradient: "bg-gradient-to-br from-purple-500 to-purple-700", trend: 0 },
+    { title: "Data Sample Rows", value: String(datasets.reduce((a,d)=>a + (d.rowCount||0),0)), subtitle: "Across uploads", icon: "🔍", gradient: "bg-gradient-to-br from-orange-500 to-red-500", trend: 0 },
   ];
 
   const quickActions = [
@@ -121,8 +133,10 @@ function Dashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FeatureCard title="Open Datasets" description="Preview uploaded datasets." icon="🗂️" comingSoon={false} primaryCta="Open" onClick={() => window.location.assign('/datasets')} />
               <FeatureCard title="Create Chart" description="Build visual charts from data." icon="📊" comingSoon={false} primaryCta="Open" onClick={() => window.location.assign('/charts')} />
-              <FeatureCard title="Saved Reports" description="Open your saved chart presets." icon="📋" comingSoon={false} primaryCta="Open" onClick={() => window.location.assign('/reports')} />
+              <FeatureCard title="Saved Reports" description="Open your saved AI-generated reports." icon="📋" comingSoon={false} primaryCta="Open" onClick={() => window.location.assign('/reports')} />
             </div>
+            
+            {/* AI Summary section removed as requested */}
           </div>
           <div>
             <div className="card-light p-4">

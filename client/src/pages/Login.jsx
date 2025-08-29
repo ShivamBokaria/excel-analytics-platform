@@ -3,7 +3,6 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import RoleToggle from "../components/RoleToggle";
 import Button from "../components/Button";
-import SocialLoginButtons from "../components/SocialLoginButtons";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "", role: "user" });
@@ -153,11 +152,6 @@ function Login() {
               </Button>
             </div>
           </form>
-
-          <SocialLoginButtons 
-            onSuccess={(message) => setInfo(message)}
-            onError={(message) => setError(message)}
-          />
         </div>
 
         {/* Right Pane (Promo / Illustration) */}
