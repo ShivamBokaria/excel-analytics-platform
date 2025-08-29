@@ -1,3 +1,18 @@
+/*
+AISummary.jsx - Page
+-------------------
+- Imports: Navbar, Button, AISummary, API
+- Main Component: AISummaryPage
+  - State: savedSummaries, loading, selectedSummary, datasets, reports, selectedDataType, selectedDataId
+  - Effects: Load summaries/data, handle user switch/summary events
+  - Functions:
+    - loadSavedSummaries: Loads saved AI summaries
+    - loadDataSources: Loads datasets and reports
+    - downloadSummary: Download summary as PDF/XLSX
+    - deleteSummary: Delete a summary
+  - Renders: Saved summaries list, summary details, quick generate section
+- Exports: AISummaryPage
+*/
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';

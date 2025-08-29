@@ -1,3 +1,11 @@
+/*
+About.jsx - Page
+----------------
+- Imports: Navbar
+- Main Component: About
+  - Renders: About section, features, why choose, getting started, footer
+- Exports: About
+*/
 import Navbar from '../components/Navbar';
 
 function About() {

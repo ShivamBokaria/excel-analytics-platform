@@ -1,3 +1,20 @@
+/*
+Datasets.jsx - Page
+-------------------
+- Imports: Navbar, Button, AISummary, API, useNavigate
+- Main Component: Datasets
+  - State: datasets, selected, loading, editingName, newName, uploading
+  - Effects: Load datasets, handle user switch
+  - Functions:
+    - loadList: Loads datasets
+    - fetchDetails: Loads dataset details
+    - remove: Deletes a dataset
+    - rename: Renames a dataset
+    - downloadDataset: Downloads dataset as CSV
+    - handleFileUpload: Handles file upload
+  - Renders: List of datasets, preview, actions, AI summary for dataset
+- Exports: Datasets
+*/
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';

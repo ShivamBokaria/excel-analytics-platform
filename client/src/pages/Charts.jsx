@@ -1,3 +1,18 @@
+/*
+Charts.jsx - Page
+-----------------
+- Imports: Navbar, Button, AISummary, API, Chart.js, html2canvas, jsPDF
+- Main Component: Charts
+  - State: datasets, selectedId, dataset, dimension, chartType, xCol, yCol, zCol, error, saving
+  - Effects: Load datasets, handle user switch, fetch details
+  - Functions:
+    - fetchDatasets: Loads datasets and sets selection
+    - validate: Validates chart config
+    - saveReport: Saves chart as report
+    - handleDownloadPng/Pdf: Download chart as PNG/PDF
+  - Renders: Chart controls, chart area, AI summary for chart
+- Exports: Charts
+*/
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
