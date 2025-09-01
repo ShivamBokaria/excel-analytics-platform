@@ -22,7 +22,7 @@ app.use(express.json()); // for parsing JSON
 import cors from "cors";
 
 const allowedOrigins = [
-  "https://excel-analytics-platform-backend.onrender.com",                  // Vite dev server (local)
+  "http://localhost:5173",                  // Vite dev server (local)
   "https://excel1analyticsplatform.netlify.app/" // replace with your Netlify domain
 ];
 
