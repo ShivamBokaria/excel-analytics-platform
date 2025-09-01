@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE}/api`,
+  baseURL: "https://excel-analytics-platform-backend.onrender.com/api",
 });
+
 
 
 API.interceptors.request.use((req) => {
