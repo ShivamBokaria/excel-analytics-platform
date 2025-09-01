@@ -19,6 +19,18 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json()); // for parsing JSON
+import cors from "cors";
+
+const allowedOrigins = [
+  "https://excel-analytics-platform-backend.onrender.com",                  // Vite dev server (local)
+  "https://excel1analyticsplatform.netlify.app/" // replace with your Netlify domain
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/files", fileRoutes);
