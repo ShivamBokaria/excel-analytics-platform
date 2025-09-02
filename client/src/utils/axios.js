@@ -5,9 +5,10 @@ import { API_BASE_URL } from "../config/config";
 console.log('API Base URL:', API_BASE_URL);
 
 const API = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 10000, // 10 second timeout
+  baseURL: "http://localhost:5000/api", // change to Render URL in prod
 });
+
+
 
 // Request interceptor
 API.interceptors.request.use((req) => {

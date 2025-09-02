@@ -15,13 +15,11 @@ dotenv.config();
 
 const app = express();
 app.use(express.json()); // for parsing JSON
-
 // ✅ Allowed frontend domains
 const allowedOrigins = [
   "http://localhost:5173",                      // Vite dev server
   "https://excel-analytics-platform.netlify.app" // Netlify deployed site
 ];
-
 // ✅ Apply CORS once, with proper config
 app.use(
   cors({
@@ -29,7 +27,6 @@ app.use(
     credentials: true,
   })
 );
-
 // ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
@@ -37,14 +34,11 @@ app.use("/api/files", fileRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/activity", activityRoutes);
 app.use("/api/ai", aiRoutes);
-
 // ✅ Connect to MongoDB
 connectDB();
-
 // ✅ Basic route
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
