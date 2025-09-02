@@ -1,5 +1,8 @@
 # Excel Analytics Platform
 
+## Live Demo-
+[Click here to view the website](https://excel-analytics-platform1.netlify.app)
+
 A simple web app to upload, analyze, and visualize Excel data. You can create charts, get AI-generated summaries, and manage users with admin controls.
 
 ## What You Can Do
