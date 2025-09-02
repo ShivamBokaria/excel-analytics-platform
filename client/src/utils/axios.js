@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../config/config";
 console.log('API Base URL:', API_BASE_URL);
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api", // change to Render URL in prod
+  baseURL: "https://excel-analytics-platform-kofn.onrender.com/api", // change to Render URL in prod
 });
 
 
