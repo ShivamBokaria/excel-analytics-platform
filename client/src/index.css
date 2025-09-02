@@ -1,68 +1,105 @@
+@import "tailwindcss";
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --brand: #2563eb; /* blue-600 */
+  --brand-secondary: #7c3aed; /* purple-600 */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html, body, #root {
+  height: 100%;
 }
 
+/* Global background image with soft overlay */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  @apply antialiased text-gray-100;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Set your image path here (place the file under client/public) */
+:root { --site-bg-url: url('/background.png'); }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: #0b1220 var(--site-bg-url) center / cover no-repeat fixed;
+  z-index: -2;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* subtle gradient overlay to improve contrast */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(5,10,20,0.5), rgba(10,14,26,0.42) 30%, rgba(10,16,30,0.5));
+  z-index: -1;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Glass utility for nav and panels */
+.glass {
+  @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg;
+}
+
+/* Dark glass for nav floating over image */
+.nav-glass {
+  @apply bg-black/30 backdrop-blur-xl border border-white/10 shadow-lg text-white;
+}
+
+/* Fading gradient border that disappears at the ends */
+.edge-border {
+  position: relative;
+}
+.edge-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; /* border thickness */
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.28), rgba(255,255,255,0));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Typography helpers */
+.display-title {
+  @apply text-4xl md:text-5xl font-extrabold tracking-tight;
+  background: linear-gradient(90deg, rgba(255,255,255,.98), rgba(180,200,255,.95) 40%, rgba(150,190,255,.9));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.heading-subtle { @apply text-white/80; }
+
+/* Card surfaces */
+.card-light { @apply bg-white/10 backdrop-blur-xl rounded-2xl shadow-lg border border-white/10 text-white; }
+.card-dark { @apply bg-black/30 backdrop-blur-xl rounded-2xl shadow-lg text-white border border-white/10; }
+
+/* Subtle containers */
+.container-padded {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Smooth scroll and modern scrollbars */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100,116,139,.6) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(100,116,139,.5);
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
 }
